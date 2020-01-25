@@ -1,0 +1,5 @@
+<resources>
+    <string name="app_name">Nike Urban Dictionary</string>
+    <string name="search_item">Enter the term</string>
+    <string name="search_button">Search</string>
+</resources>
