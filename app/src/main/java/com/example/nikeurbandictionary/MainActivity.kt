@@ -40,7 +40,7 @@ class MainActivity : AppCompatActivity(), View.OnClickListener {
         setContentView(R.layout.activity_main)
         setUpRecyclerView()
 
-        inputEditText = findViewById(R.id.input_et)
+        inputEditText = findViewById(R.id.et_input)
         searchButton = findViewById(R.id.btn_search)
 
         customViewModel.getUrbanDictionaryFailure().observe(this, object : Observer<String> {
@@ -69,7 +69,7 @@ class MainActivity : AppCompatActivity(), View.OnClickListener {
     }
 
     private fun setUpRecyclerView() {
-        rvUrban = findViewById(R.id.urban_rv)
+        rvUrban = findViewById(R.id.rv_urban)
         rvUrban.layoutManager = LinearLayoutManager(this)
     }
 
