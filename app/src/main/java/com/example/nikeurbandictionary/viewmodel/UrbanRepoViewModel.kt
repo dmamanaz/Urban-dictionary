@@ -16,13 +16,6 @@ class UrbanRepoViewModel : ViewModel() {
             MutableLiveData<UrbanResponse> = MutableLiveData()
     private var urbanDictionaryFailure:
             MutableLiveData<String> = MutableLiveData()
-    var lastRequestTime : Long = -1
-
-
-    //users click button, then show loading
-    //checks connectivity ->(False) disable loading, show cache
-    //check connectivity ->(True) disable loading, show data
-    //checks connectivity ->(true) -> (network error) -> disable loading, show error
 
     fun getUrbanDictionaryData(): LiveData<UrbanResponse> = urbanDictionaryResponse
 
@@ -30,9 +23,11 @@ class UrbanRepoViewModel : ViewModel() {
 
     fun getUrbanDefinition(query: String) {
 
-        if((System.currentTimeMillis() - lastRequestTime) < 10000){
+        if(query.isEmpty()){
+            urbanDictionaryFailure.value = "No empty queries available, please try again"
             return
         }
+
 
 
         buildNetworkRequest(UrbanDictionaryApplication.instance).getUrbanDefinition(query)
@@ -45,8 +40,46 @@ class UrbanRepoViewModel : ViewModel() {
                     call: Call<UrbanResponse>,
                     response: Response<UrbanResponse>
                 ) {
-                    urbanDictionaryResponse.value = response.body()
+                    if(response.isSuccessful && response.body() != null) {
+                        urbanDictionaryResponse.value = response.body().let {
+                            sortUpData(it!!)
+                        }
+                    }
                 }
             })
+    }
+
+    fun sorting(sortingUp: Boolean){
+        var data = urbanDictionaryResponse.let {
+            it.value!!
+        }
+        when(sortingUp){
+            true-> data = sortUpData(data)
+            false-> data = sortDownData(data)
+        }
+        urbanDictionaryResponse.value = data
+    }
+
+    private fun sortUpData(data: UrbanResponse): UrbanResponse{
+        data.list.sortWith(kotlin.Comparator{
+                leftTUp, rightTUp ->
+            when {
+                leftTUp.thumbs_up.toInt() > rightTUp.thumbs_up.toInt() -> -1
+                leftTUp.thumbs_up.toInt() < rightTUp.thumbs_up.toInt() -> 1
+                else -> 0
+            }
+        })
+        return data
+    }
+    private fun sortDownData(data: UrbanResponse): UrbanResponse{
+        data.list.sortWith(kotlin.Comparator{
+                leftTDown, rightTDow  ->
+            when {
+                leftTDown.thumbs_down.toInt() > rightTDow.thumbs_down.toInt() -> -1
+                leftTDown.thumbs_down.toInt() < rightTDow.thumbs_down.toInt() -> 1
+                else -> 0
+            }
+        })
+        return data
     }
 }

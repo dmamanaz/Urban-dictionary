@@ -5,7 +5,7 @@ import android.content.Context
 
 class UrbanDictionaryApplication : Application() {
     companion object {
-        lateinit var instance: UrbanDictionaryApplication
+         lateinit var instance: UrbanDictionaryApplication
         val context: Context get() = instance
     }
 

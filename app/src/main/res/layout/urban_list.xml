@@ -1,5 +1,7 @@
 <?xml version="1.0" encoding="utf-8"?>
 <RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools"
     android:orientation="vertical"
     android:layout_width="match_parent"
     android:layout_height="wrap_content">
@@ -29,6 +31,7 @@
                  android:id="@+id/thumbsUp_tv"
                  android:layout_width="wrap_content"
                  android:layout_height="wrap_content"
+                 android:drawableLeft="@drawable/ic_thumb_up"
                  android:text="TextView"
                  android:textColor="@color/colorAccent"/>
 
@@ -36,8 +39,10 @@
                  android:id="@+id/thumbsDown_tv"
                  android:layout_width="wrap_content"
                  android:layout_height="wrap_content"
+                 android:drawableLeft="@drawable/ic_thumb_down"
                  android:text="TextView"
                  android:textColor="@color/colorAccent"/>
+
 
         </LinearLayout>
     </androidx.cardview.widget.CardView>

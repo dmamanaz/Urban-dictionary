@@ -26,6 +26,7 @@ class UrbanDictionaryAdapter (val resultList: UrbanResponse):
             itemView.definition_tv.text = resultList.definition
             itemView.thumbsUp_tv.text = resultList.thumbs_up.toString()
             itemView.thumbsDown_tv.text = resultList.thumbs_down.toString()
+
         }
     }
 }
