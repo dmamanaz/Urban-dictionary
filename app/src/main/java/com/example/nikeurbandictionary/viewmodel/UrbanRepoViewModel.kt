@@ -16,6 +16,7 @@ class UrbanRepoViewModel : ViewModel() {
             MutableLiveData<UrbanResponse> = MutableLiveData()
     private var urbanDictionaryFailure:
             MutableLiveData<String> = MutableLiveData()
+    var lastRequestTime : Long = -1
 
 
     //users click button, then show loading
@@ -28,6 +29,11 @@ class UrbanRepoViewModel : ViewModel() {
     fun getUrbanDictionaryFailure(): LiveData<String> = urbanDictionaryFailure
 
     fun getUrbanDefinition(query: String) {
+
+        if((System.currentTimeMillis() - lastRequestTime) < 10000){
+            return
+        }
+
 
         buildNetworkRequest(UrbanDictionaryApplication.instance).getUrbanDefinition(query)
             .enqueue(object : Callback<UrbanResponse> {
