@@ -53,7 +53,6 @@ class MainActivity : AppCompatActivity(), View.OnClickListener {
                 urbanDictionaryAdapter = t?.let { UrbanDictionaryAdapter(it) }!!
                 rvUrban.adapter = urbanDictionaryAdapter
 
-                Log.d("TAG", "Onchange")
             }
         })
 
@@ -64,7 +63,6 @@ class MainActivity : AppCompatActivity(), View.OnClickListener {
         customViewModel.getUrbanDefinition(
             inputEditText.text.toString()
         )
-        Log.d("TAG", "Onchange")
 
     }
 
